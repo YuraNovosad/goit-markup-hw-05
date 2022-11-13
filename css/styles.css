@@ -6,9 +6,15 @@
   --background-color: #ffffff;
   --background-color-second: #f5f4fa;
   --backgraund-color-footer: #2f303a;
-  --logo-font: "Raleway";
+  --logo-font: 'Raleway';
   --margin-card: 30px;
   --icon-color: #afb1b8;
+  --transform-transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transform-color: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transform-bg-color: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fill: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-box-shadow: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-border-color: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* General style */
@@ -40,7 +46,7 @@ img {
 body {
   background-color: var(--background-color);
   color: var(--primery-text-color);
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .list {
@@ -122,7 +128,7 @@ body {
 }
 
 .site-nav .link {
-  display: block;
+  /* display: block; */
   font-weight: 500;
   font-size: 14px;
   line-height: calc(16 / 14);
@@ -130,6 +136,7 @@ body {
   color: var(--title-text-color);
   padding-top: 32px;
   padding-bottom: 32px;
+  transition: var(--transform-color);
 }
 
 .header-nav .link:hover,
@@ -139,6 +146,20 @@ body {
 
 .site-nav .link.current {
   color: var(--accent-color);
+  position: relative;
+}
+
+.link.current::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 4px;
+
+  background-color: var(--accent-color);
+  border-radius: 4px;
 }
 
 .address-header {
@@ -163,6 +184,7 @@ body {
   color: var(--primery-text-color);
   padding-top: 32px;
   padding-bottom: 32px;
+  transition: var(--transform-color);
 }
 
 .header-contacts:hover,
@@ -173,6 +195,7 @@ body {
 .icon {
   margin-right: 10px;
   fill: currentColor;
+  transition: var(--transition-fill);
 }
 
 .header-contacts:hover .icon,
@@ -191,11 +214,7 @@ body {
   margin-right: auto;
   margin-left: auto;
 
-  background-image: linear-gradient(
-      to right,
-      rgba(47, 48, 58, 0.4),
-      rgba(47, 48, 58, 0.4)
-    ),
+  background-image: linear-gradient(to right, rgba(47, 48, 58, 0.4), rgba(47, 48, 58, 0.4)),
     url(../images/hero-img.jpg);
   background-repeat: no-repeat;
   background-size: cover;
@@ -229,6 +248,7 @@ body {
   color: var(--background-color);
   border: none;
   cursor: pointer;
+  transition: var(--transform-bg-color);
 }
 
 .button-hero:hover,
@@ -319,8 +339,32 @@ body {
   margin-right: 30px;
 }
 
+.specialization-thumb {
+  position: relative;
+}
+
 .specialization-image {
   display: block;
+}
+
+.title-thumb-sp {
+  width: 100%;
+  height: 70px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: rgba(47, 48, 58, 0.8);
+  text-align: center;
+}
+
+.specialization-image-title {
+  padding: 27px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: calc(16 / 14);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--accent-color-text);
 }
 
 /* Section Team */
@@ -400,6 +444,7 @@ body {
   color: var(--icon-color);
   background-color: var(--background-color);
   border-radius: 50%;
+  transition: var(--transform-bg-color);
 }
 
 .social-link:hover,
@@ -407,8 +452,9 @@ body {
   background-color: var(--accent-color);
 }
 
-.social-icon {
+.social-link .social-icon {
   fill: currentColor;
+  transition: var(--transition-fill);
 }
 
 .social-link:hover .social-icon,
@@ -437,17 +483,19 @@ body {
   padding: 16px 32px;
   border: 1px solid var(--icon-color);
   border-radius: 4px;
-  color: var(--icon-color);
+  fill: var(--icon-color);
+  transition: var(--transition-fill), var(--transition-border-color);
 }
 
 .client-link:hover,
 .client-link:focus {
-  border: 1px solid var(--accent-color);
-  border-radius: 4px;
+  fill: var(--accent-color);
+  border-color: var(--accent-color);
 }
 
-.button-client {
-  fill: currentColor;
+.client-link .button-client {
+  fill: var(--icon-color);
+  transition: var(--transition-fill);
 }
 
 .client-link:hover .button-client,
@@ -468,10 +516,7 @@ body {
 }
 
 .button-filter {
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-right: 22px;
-  padding-left: 22px;
+  padding: 6px 22px;
   background-color: var(--background-color-second);
   color: var(--title-text-color);
   border: none;
@@ -482,6 +527,7 @@ body {
   letter-spacing: 0.03em;
   font-family: inherit;
   cursor: pointer;
+  transition: var(--transform-bg-color), var(--transform-color), var(--transition-box-shadow);
 }
 
 .button-filter:hover,
@@ -503,6 +549,41 @@ body {
   flex-basis: calc(100% / 3 - var(--margin-card));
   margin-left: 30px;
   margin-top: 30px;
+}
+
+.portfolio-thumb {
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-thumb-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  padding: 63px 24px;
+  background: rgba(33, 150, 243, 0.9);
+
+  transform: translateY(100%);
+  transition: var(--transform-transition);
+}
+
+.portfolio-link:hover .portfolio-thumb-text,
+.portfolio-link:focus .portfolio-thumb-text {
+  transform: translateY(0);
+}
+
+.portfolio-text {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: calc(28 / 18);
+  letter-spacing: 0.03em;
+  color: var(--accent-color-text);
+}
+.portfolio-card {
+  transition: var(--transition-box-shadow);
 }
 
 .portfolio-card:hover,
@@ -584,6 +665,10 @@ body {
   color: rgba(255, 255, 255, 0.6);
 }
 
+.address-footer-list a {
+  transition: var(--transform-color);
+}
+
 .address-footer-list a:hover,
 .address-footer-list a:focus {
   color: var(--accent-color);
@@ -606,4 +691,51 @@ body {
 
 .social-icon-footer {
   fill: var(--accent-color-text);
+}
+
+/* backdrop і модальне вікно */
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 528px;
+  height: 581px;
+
+  background: #ffffff;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.icon-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background-color: var(--background-color);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
 }
